@@ -1,5 +1,11 @@
 name: main-to-eb
 
+env:
+  DB_URL: ${{ secrets.DB_URL }}
+  DB_DATABASE: ${{ secrets.DB_DATABASE }}
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
 on:
   push: # push 이벤트가 발생할 때
     branches: [ main ]
@@ -20,11 +26,11 @@ jobs:
 
       - name: Grant execute permission for gradlew
         uses: gradle/gradle-build-action@v2
-        env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+        
+      - name: Build with Gradle
         run: ./gradlew clean build
 
       - name: Get current time
