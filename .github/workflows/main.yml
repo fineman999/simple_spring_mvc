@@ -1,0 +1,39 @@
+name: deploy-to-eb
+
+on:
+  workflow_run:
+    workflows: ["gradle-build"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.1.1
+        id: current-time
+        with:
+          format: YYYYMMDDTHHmm
+          utcOffset: "+09:00"
+
+      - name: Generate deployment package
+        run: |
+          mkdir -p deploy
+          cp ./build/libs/simple_spring_mvc-0.0.1-SNAPSHOT.jar deploy/simple-spring-mvc.jar
+          cp ./eb/Procfile deploy/Procfile
+          cp -r ./eb/.ebextensions deploy/.ebextensions
+          cd deploy && zip -r simple-spring-mvc-label-${{steps.current-time.outputs.formattedTime}}-${{github.sha}} .
+
+      - name: Deploy Consumer to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: simple-spring-mvc
+          environment_name: Simple-spring-mvc-env
+          version_label: simple-spring-mvc-label-${{steps.current-time.outputs.formattedTime}}-${{github.sha}}
+          region: ap-northeast-2
+          deployment_package: deploy/simple-spring-mvc-label-${{steps.current-time.outputs.formattedTime}}-${{github.sha}}.zip
+          wait_for_environment_recovery: 300
