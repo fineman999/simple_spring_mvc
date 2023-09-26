@@ -15,6 +15,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -38,12 +39,24 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: simple-spring-mvc
+          path: build/libs/simple_spring_mvc-0.0.1-SNAPSHOT.jar
+
   deploy:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
 
     steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: simple-spring-mvc
+
+
       - name: Get current time
         uses: josStorer/get-current-time@v2.1.1
         id: current-time
