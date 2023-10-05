@@ -6,6 +6,14 @@
 1인 개발 하고 있는 서버 개발자들을 위한 쉽고 빠르게 백엔드 서버를 구축할 수 있는 프로젝트입니다.
 이 프로젝트는 최소한의 API(health check)와 DB 연결을 통해 서버를 구축할 수 있도록 도와줍니다.
 
+## 관련 문서
+- [소개](https://ppaekkomlog.tistory.com/17)
+- [AWS Elastic Beanstalk](https://ppaekkomlog.tistory.com/18)
+- [Amazon RDS](https://ppaekkomlog.tistory.com/19)
+- [Github Actions(CI/CD)](https://ppaekkomlog.tistory.com/20)
+- [Amazon Route 53 + AWS Certificate Manager(ACM) + 가비아](https://ppaekkomlog.tistory.com/21)
+
+
 ## 아키텍처
 
 
@@ -27,5 +35,3 @@ $ ./gradlew build
 $ java -jar build/libs/*.jar
 
 ```
-
-
