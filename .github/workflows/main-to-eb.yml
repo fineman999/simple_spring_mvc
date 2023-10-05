@@ -13,6 +13,8 @@ env:
 on:
   push:
     branches: [ main ]
+    paths: 
+    - 'simple-spring-mvc/src/**'
 
 jobs:
 
