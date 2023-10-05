@@ -1,6 +1,4 @@
 
-# Simple-spring-mvc [![main-to-eb](https://github.com/fineman999/simple_spring_mvc/actions/workflows/main-to-eb.yml/badge.svg)](https://github.com/fineman999/simple_spring_mvc/actions/workflows/main-to-eb.yml)
-
 ---
  
 1인 개발 하고 있는 서버 개발자들을 위한 쉽고 빠르게 백엔드 서버를 구축할 수 있는 프로젝트입니다.
